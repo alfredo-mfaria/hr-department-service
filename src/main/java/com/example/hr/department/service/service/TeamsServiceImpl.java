@@ -1,9 +1,10 @@
 package com.example.hr.department.service.service;
 
 import com.example.hr.department.service.domain.TeamsEntity;
+import com.example.hr.department.service.mapper.TeamsMapper;
 import com.example.hr.department.service.model.request.TeamResponseDTO;
 import com.example.hr.department.service.model.response.TeamRequestDTO;
-import com.example.hr.department.service.repository.RepositoryFacade;
+import com.example.hr.department.service.repository.jpa.TeamsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeamsServiceImpl implements TeamsService {
 
-    private final RepositoryFacade<TeamsEntity> postgresStrategy;
+    private final TeamsRepository repository;
+    private final TeamsMapper teamsMapper;
 
     @Override
     public TeamResponseDTO createTeam(TeamRequestDTO teamRequestDTO) {
-        return TeamResponseDTO.builder()
-                .id("1")
-                .developers(List.of("Alfredo", "Renata"))
-                .description("backend team")
-                .name("Alpha")
-                .build();
+        TeamsEntity entity = teamsMapper.mapToTeamsEntity(teamRequestDTO);
+        TeamsEntity dbResponse = repository.save(entity);
+        return teamsMapper.mapToTeamsResponseDTO(dbResponse);
     }
 
     @Override
