@@ -1,4 +1,4 @@
-package com.example.hr.department.service.model.request;
+package com.example.hr.department.service.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

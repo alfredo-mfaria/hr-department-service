@@ -1,8 +1,8 @@
 package com.example.hr.department.service.mapper;
 
 import com.example.hr.department.service.domain.TeamsEntity;
-import com.example.hr.department.service.model.request.TeamResponseDTO;
-import com.example.hr.department.service.model.response.TeamRequestDTO;
+import com.example.hr.department.service.model.response.TeamResponseDTO;
+import com.example.hr.department.service.model.request.TeamRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

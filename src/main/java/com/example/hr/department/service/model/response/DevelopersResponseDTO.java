@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeamRequestDTO {
+public class DevelopersResponseDTO {
 
+    private String id;
     private String name;
-    private String description;
-    //TODO change to list of Developer
-    //private List<String> developers;
+    private String team;
 }

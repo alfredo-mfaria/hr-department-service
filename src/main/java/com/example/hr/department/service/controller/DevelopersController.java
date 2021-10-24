@@ -1,7 +1,7 @@
 package com.example.hr.department.service.controller;
 
-import com.example.hr.department.service.model.request.TeamRequestDTO;
-import com.example.hr.department.service.model.response.TeamResponseDTO;
+import com.example.hr.department.service.model.request.DevelopersRequestDTO;
+import com.example.hr.department.service.model.response.DevelopersResponseDTO;
 import com.example.hr.department.service.service.GenericService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,38 +19,38 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teams")
+@RequestMapping("/developers")
 @RequiredArgsConstructor
-public class TeamsController {
+public class DevelopersController {
 
-    private final GenericService<TeamRequestDTO, TeamResponseDTO> teamsService;
+    private final GenericService<DevelopersRequestDTO, DevelopersResponseDTO> developersService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<TeamResponseDTO> findAllTeams() {
-        return teamsService.findAll();
+    public List<DevelopersResponseDTO> findAllDevelopers() {
+        return developersService.findAll();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public TeamResponseDTO findTeamById(@PathVariable("id") String id) {
-        return teamsService.findById(id);
+    public DevelopersResponseDTO findTeamById(@PathVariable("id") String id) {
+        return developersService.findById(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public TeamResponseDTO createTeam(@RequestBody TeamRequestDTO payload) {
-        return teamsService.create(payload);
+    public DevelopersResponseDTO createTeam(@RequestBody DevelopersRequestDTO payload) {
+        return developersService.create(payload);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public TeamResponseDTO updateTeam(@PathVariable("id") String id,
-                                      @RequestBody TeamRequestDTO payload) {
-        return teamsService.updateById(id, payload);
+    public DevelopersResponseDTO updateTeam(@PathVariable("id") String id,
+                                            @RequestBody DevelopersRequestDTO payload) {
+        return developersService.updateById(id, payload);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteTeam(@PathVariable("id") String id) {
 
-        teamsService.deleteById(id);
+        developersService.deleteById(id);
     }
 }
