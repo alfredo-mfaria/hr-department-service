@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,34 +19,41 @@ public class DevelopersServiceImpl implements GenericService<DevelopersRequestDT
 
     private final DevelopersRepository developersRepository;
     private final TeamsRepository teamsRepository;
-    private final DevelopersMapper mapper;
+    private final DevelopersMapper developersMapper;
 
     @Override
     public DevelopersResponseDTO create(DevelopersRequestDTO payload) {
 
+        //todo team does not exist throw exception
         TeamsEntity teamsEntity = teamsRepository.findByName(payload.getTeam());
-        DevelopersEntity developersEntity = mapper.mapToDevelopersEntity(payload, teamsEntity);
+        DevelopersEntity developersEntity = developersMapper.mapToDevelopersEntity(null, payload, teamsEntity);
         DevelopersEntity dbResponse = developersRepository.save(developersEntity);
-        return mapper.mapToDevelopersResponseDTO(dbResponse);
+        return developersMapper.mapToDevelopersResponseDTO(dbResponse);
     }
 
     @Override
     public DevelopersResponseDTO updateById(String id, DevelopersRequestDTO payload) {
-        return null;
+        TeamsEntity teamsEntity = teamsRepository.findByName(payload.getTeam());
+        DevelopersEntity developersEntity = developersMapper.mapToDevelopersEntity(id, payload, teamsEntity);
+        DevelopersEntity dbResponse = developersRepository.save(developersEntity);
+        return developersMapper.mapToDevelopersResponseDTO(dbResponse);
     }
 
     @Override
     public DevelopersResponseDTO findById(String id) {
-        return null;
+        Optional<DevelopersEntity> dbResponse = developersRepository.findById(id);
+        return dbResponse.map(developersMapper::mapToDevelopersResponseDTO)
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
     @Override
     public List<DevelopersResponseDTO> findAll() {
-        return null;
-    }
+        List<DevelopersEntity> allEntities = developersRepository.findAll();
+        return developersMapper.mapToDevelopersResponseDTOList(allEntities);    }
 
     @Override
     public void deleteById(String id) {
-
+        developersRepository.deleteById(id);
+        System.out.println("Deleted developer with id: " + id);
     }
 }

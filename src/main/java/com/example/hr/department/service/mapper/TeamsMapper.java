@@ -25,10 +25,6 @@ public class TeamsMapper {
                 .build();
     }
 
-    private String getId(String id) {
-        return isNull(id) ? UUID.randomUUID().toString() : id;
-    }
-
     public TeamResponseDTO mapToTeamsResponseDTO(TeamsEntity entity) {
         return TeamResponseDTO.builder()
                 .id(entity.getId())
@@ -44,5 +40,9 @@ public class TeamsMapper {
                 .stream()
                 .map(this::mapToTeamsResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    private String getId(String id) {
+        return isNull(id) ? UUID.randomUUID().toString() : id;
     }
 }
