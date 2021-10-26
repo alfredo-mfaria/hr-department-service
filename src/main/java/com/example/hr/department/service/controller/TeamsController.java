@@ -42,13 +42,13 @@ public class TeamsController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
     public TeamResponseDTO updateTeam(@PathVariable("id") String id,
                                       @RequestBody TeamRequestDTO payload) {
         return teamsService.updateById(id, payload);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTeam(@PathVariable("id") String id) {
 
         teamsService.deleteById(id);

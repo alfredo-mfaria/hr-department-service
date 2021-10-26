@@ -42,13 +42,13 @@ public class DevelopersController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
     public DevelopersResponseDTO updateTeam(@PathVariable("id") String id,
                                             @RequestBody DevelopersRequestDTO payload) {
         return developersService.updateById(id, payload);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTeam(@PathVariable("id") String id) {
 
         developersService.deleteById(id);

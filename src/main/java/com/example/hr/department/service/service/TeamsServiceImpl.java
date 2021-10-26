@@ -3,6 +3,7 @@ package com.example.hr.department.service.service;
 import com.example.hr.department.service.domain.TeamsEntity;
 import com.example.hr.department.service.exception.DataConflictException;
 import com.example.hr.department.service.exception.DataNotFoundException;
+import com.example.hr.department.service.exception.GenericException;
 import com.example.hr.department.service.mapper.TeamsMapper;
 import com.example.hr.department.service.model.request.TeamRequestDTO;
 import com.example.hr.department.service.model.response.TeamResponseDTO;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Objects.isNull;
+
 @Service
 @RequiredArgsConstructor
 public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResponseDTO> {
@@ -22,11 +25,16 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
 
     @Override
     public TeamResponseDTO create(TeamRequestDTO payload) {
-        return Optional.ofNullable(teamsRepository.findByName(payload.getName()))
-                .map(newTeam -> teamsMapper.mapToTeamsEntity(null, payload))
+        TeamsEntity teamsEntity = teamsRepository.findByName(payload.getName());
+        if (!isNull(teamsEntity)) {
+            throw new DataConflictException("Team " + payload.getName() + " already exists");
+        }
+        return Optional.ofNullable(teamsMapper.mapToTeamsEntity(null, payload))
                 .map(teamsRepository::save)
                 .map(teamsMapper::mapToTeamsResponseDTO)
-                .orElseThrow(() -> new DataConflictException("Team " + payload.getName() + " already exists"));
+                .orElseThrow(() -> {
+                    throw new GenericException("Unable to save team " +payload.getName());
+                });
     }
 
     @Override
