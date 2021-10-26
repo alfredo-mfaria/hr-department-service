@@ -1,9 +1,11 @@
 package com.example.hr.department.service.service;
 
 import com.example.hr.department.service.domain.TeamsEntity;
+import com.example.hr.department.service.exception.DataConflictException;
+import com.example.hr.department.service.exception.DataNotFoundException;
 import com.example.hr.department.service.mapper.TeamsMapper;
-import com.example.hr.department.service.model.response.TeamResponseDTO;
 import com.example.hr.department.service.model.request.TeamRequestDTO;
+import com.example.hr.department.service.model.response.TeamResponseDTO;
 import com.example.hr.department.service.repository.jpa.TeamsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,24 +21,28 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
     private final TeamsMapper teamsMapper;
 
     @Override
-    public TeamResponseDTO create(TeamRequestDTO teamRequestDTO) {
-        TeamsEntity entity = teamsMapper.mapToTeamsEntity(null, teamRequestDTO);
-        TeamsEntity dbResponse = teamsRepository.save(entity);
-        return teamsMapper.mapToTeamsResponseDTO(dbResponse);
+    public TeamResponseDTO create(TeamRequestDTO payload) {
+        return Optional.ofNullable(teamsRepository.findByName(payload.getName()))
+                .map(newTeam -> teamsMapper.mapToTeamsEntity(null, payload))
+                .map(teamsRepository::save)
+                .map(teamsMapper::mapToTeamsResponseDTO)
+                .orElseThrow(() -> new DataConflictException("Team " + payload.getName() + " already exists"));
     }
 
     @Override
-    public TeamResponseDTO updateById(String id, TeamRequestDTO teamRequestDTO) {
-        TeamsEntity entity = teamsMapper.mapToTeamsEntity(id, teamRequestDTO);
-        TeamsEntity dbResponse = teamsRepository.save(entity);
-        return teamsMapper.mapToTeamsResponseDTO(dbResponse);
+    public TeamResponseDTO updateById(String id, TeamRequestDTO payload) {
+        return teamsRepository.findById(id)
+                .map(ignored -> teamsMapper.mapToTeamsEntity(id, payload))
+                .map(teamsRepository::save)
+                .map(teamsMapper::mapToTeamsResponseDTO)
+                .orElseThrow(() -> new DataNotFoundException("Team with id " + id + " not found"));
     }
 
     @Override
     public TeamResponseDTO findById(String id) {
-        Optional<TeamsEntity> dbResponse = teamsRepository.findById(id);
-        return dbResponse.map(teamsMapper::mapToTeamsResponseDTO)
-                .orElseThrow(() -> new RuntimeException("Not found"));
+        return teamsRepository.findById(id)
+                .map(teamsMapper::mapToTeamsResponseDTO)
+                .orElseThrow(() -> new DataNotFoundException("Team with id " + id + " not found"));
     }
 
     @Override
@@ -48,6 +54,5 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
     @Override
     public void deleteById(String id) {
         teamsRepository.deleteById(id);
-        System.out.println("Deleted team with id: " + id);
     }
 }
