@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -16,12 +19,13 @@ import javax.persistence.Table;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "developers")
+@Table(name = "DEVELOPERS")
 public class DevelopersEntity extends BaseEntity {
 
-
+    @Column(name = "NAME")
     private String name;
-    private String description;
-    //TODO change to list of Developer
-    //private List<String> developers;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private TeamsEntity team;
 }

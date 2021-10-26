@@ -28,7 +28,7 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
     public TeamResponseDTO updateById(String id, TeamRequestDTO teamRequestDTO) {
         return TeamResponseDTO.builder()
                 .id("1")
-                .developers(List.of("Alfredo", "Renata"))
+                .developers(List.of())
                 .description("backend team")
                 .name("Alpha")
                 .build();
@@ -38,7 +38,7 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
     public TeamResponseDTO findById(String id) {
         return TeamResponseDTO.builder()
                 .id("1")
-                .developers(List.of("Alfredo", "Renata"))
+                .developers(List.of())
                 .description("backend team")
                 .name("Alpha")
                 .build();
@@ -48,13 +48,13 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
     public List<TeamResponseDTO> findAll() {
         TeamResponseDTO alpha = TeamResponseDTO.builder()
                 .id("1")
-                .developers(List.of("Alfredo", "Renata"))
+                .developers(List.of())
                 .description("backend team")
                 .name("Alpha")
                 .build();
         TeamResponseDTO beta = TeamResponseDTO.builder()
                 .id("2")
-                .developers(List.of("Renata", "Alfredo"))
+                .developers(List.of())
                 .description("frontend team")
                 .name("Beta")
                 .build();

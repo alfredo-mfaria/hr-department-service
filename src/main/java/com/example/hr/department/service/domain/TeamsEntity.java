@@ -6,8 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -16,12 +20,16 @@ import javax.persistence.Table;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "teams")
+@Table(name = "TEAMS")
 public class TeamsEntity extends BaseEntity {
 
 
+    @Column(name = "NAME", unique = true)
     private String name;
+
+    @Column(name = "DESCRIPTION")
     private String description;
-    //TODO change to list of Developer
-    //private List<String> developers;
+
+    @OneToMany(mappedBy = "team")
+    private List<DevelopersEntity> developers = new ArrayList<>();
 }

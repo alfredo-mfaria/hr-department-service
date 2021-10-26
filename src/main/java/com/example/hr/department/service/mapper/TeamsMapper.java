@@ -23,6 +23,7 @@ public class TeamsMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
+                .developers(entity.getDevelopers())
                 .build();
     }
 }
