@@ -1,5 +1,6 @@
 package com.example.hr.department.service.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class DevelopersEntity extends BaseEntity {
     private String name;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "TEAM_ID")
     private TeamsEntity team;
 }

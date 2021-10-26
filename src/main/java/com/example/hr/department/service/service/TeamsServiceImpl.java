@@ -9,60 +9,45 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResponseDTO> {
 
-    private final TeamsRepository repository;
+    private final TeamsRepository teamsRepository;
     private final TeamsMapper teamsMapper;
 
     @Override
     public TeamResponseDTO create(TeamRequestDTO teamRequestDTO) {
-        TeamsEntity entity = teamsMapper.mapToTeamsEntity(teamRequestDTO);
-        TeamsEntity dbResponse = repository.save(entity);
+        TeamsEntity entity = teamsMapper.mapToTeamsEntity(null, teamRequestDTO);
+        TeamsEntity dbResponse = teamsRepository.save(entity);
         return teamsMapper.mapToTeamsResponseDTO(dbResponse);
     }
 
     @Override
     public TeamResponseDTO updateById(String id, TeamRequestDTO teamRequestDTO) {
-        return TeamResponseDTO.builder()
-                .id("1")
-                .developers(List.of())
-                .description("backend team")
-                .name("Alpha")
-                .build();
+        TeamsEntity entity = teamsMapper.mapToTeamsEntity(id, teamRequestDTO);
+        TeamsEntity dbResponse = teamsRepository.save(entity);
+        return teamsMapper.mapToTeamsResponseDTO(dbResponse);
     }
 
     @Override
     public TeamResponseDTO findById(String id) {
-        return TeamResponseDTO.builder()
-                .id("1")
-                .developers(List.of())
-                .description("backend team")
-                .name("Alpha")
-                .build();
+        Optional<TeamsEntity> dbResponse = teamsRepository.findById(id);
+        return dbResponse.map(teamsMapper::mapToTeamsResponseDTO)
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
     @Override
     public List<TeamResponseDTO> findAll() {
-        TeamResponseDTO alpha = TeamResponseDTO.builder()
-                .id("1")
-                .developers(List.of())
-                .description("backend team")
-                .name("Alpha")
-                .build();
-        TeamResponseDTO beta = TeamResponseDTO.builder()
-                .id("2")
-                .developers(List.of())
-                .description("frontend team")
-                .name("Beta")
-                .build();
-        return List.of(alpha, beta);
+        List<TeamsEntity> allEntities = teamsRepository.findAll();
+        return teamsMapper.mapToTeamsResponseDTOList(allEntities);
     }
 
     @Override
     public void deleteById(String id) {
+        teamsRepository.deleteById(id);
         System.out.println("Deleted team with id: " + id);
     }
 }

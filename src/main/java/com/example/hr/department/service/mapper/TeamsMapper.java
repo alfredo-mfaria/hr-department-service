@@ -1,21 +1,32 @@
 package com.example.hr.department.service.mapper;
 
 import com.example.hr.department.service.domain.TeamsEntity;
-import com.example.hr.department.service.model.response.TeamResponseDTO;
 import com.example.hr.department.service.model.request.TeamRequestDTO;
+import com.example.hr.department.service.model.response.TeamResponseDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
 
 @Service
 public class TeamsMapper {
 
-    public TeamsEntity mapToTeamsEntity(TeamRequestDTO teamRequestDTO) {
+    public TeamsEntity mapToTeamsEntity(String id, TeamRequestDTO teamRequestDTO) {
         return TeamsEntity.builder()
-                .id(UUID.randomUUID().toString())
+                .id(getId(id))
                 .name(teamRequestDTO.getName())
                 .description(teamRequestDTO.getDescription())
                 .build();
+    }
+
+    private String getId(String id) {
+        return isNull(id) ? UUID.randomUUID().toString() : id;
     }
 
     public TeamResponseDTO mapToTeamsResponseDTO(TeamsEntity entity) {
@@ -25,5 +36,13 @@ public class TeamsMapper {
                 .description(entity.getDescription())
                 .developers(entity.getDevelopers())
                 .build();
+    }
+
+    public List<TeamResponseDTO> mapToTeamsResponseDTOList(List<TeamsEntity> allEntities) {
+        return Optional.ofNullable(allEntities)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(this::mapToTeamsResponseDTO)
+                .collect(Collectors.toList());
     }
 }

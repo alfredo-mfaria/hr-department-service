@@ -1,13 +1,16 @@
 package com.example.hr.department.service.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class TeamsEntity extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @OneToMany(mappedBy = "team")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DevelopersEntity> developers = new ArrayList<>();
 }

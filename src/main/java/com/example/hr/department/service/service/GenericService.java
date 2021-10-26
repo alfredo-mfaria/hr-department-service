@@ -1,9 +1,5 @@
 package com.example.hr.department.service.service;
 
-import com.example.hr.department.service.model.request.TeamRequestDTO;
-import com.example.hr.department.service.model.response.DevelopersResponseDTO;
-import com.example.hr.department.service.model.response.TeamResponseDTO;
-
 import java.util.List;
 
 //P stand for request Payload, R stands for Response
