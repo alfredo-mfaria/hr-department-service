@@ -1,4 +1,4 @@
-package com.example.hr.department.service.repository.jpa;
+package com.example.hr.department.service.repository;
 
 import com.example.hr.department.service.domain.TeamsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

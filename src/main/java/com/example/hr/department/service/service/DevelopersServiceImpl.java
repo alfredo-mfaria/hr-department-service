@@ -5,8 +5,8 @@ import com.example.hr.department.service.exception.DataNotFoundException;
 import com.example.hr.department.service.mapper.DevelopersMapper;
 import com.example.hr.department.service.model.request.DevelopersRequestDTO;
 import com.example.hr.department.service.model.response.DevelopersResponseDTO;
-import com.example.hr.department.service.repository.jpa.DevelopersRepository;
-import com.example.hr.department.service.repository.jpa.TeamsRepository;
+import com.example.hr.department.service.repository.DevelopersRepository;
+import com.example.hr.department.service.repository.TeamsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

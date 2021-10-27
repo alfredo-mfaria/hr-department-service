@@ -7,7 +7,7 @@ import com.example.hr.department.service.exception.GenericException;
 import com.example.hr.department.service.mapper.TeamsMapper;
 import com.example.hr.department.service.model.request.TeamRequestDTO;
 import com.example.hr.department.service.model.response.TeamResponseDTO;
-import com.example.hr.department.service.repository.jpa.TeamsRepository;
+import com.example.hr.department.service.repository.TeamsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
