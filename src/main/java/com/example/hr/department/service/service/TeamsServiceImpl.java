@@ -11,6 +11,7 @@ import com.example.hr.department.service.repository.jpa.TeamsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
     private final TeamsMapper teamsMapper;
 
     @Override
+    @Transactional
     public TeamResponseDTO create(TeamRequestDTO payload) {
         TeamsEntity teamsEntity = teamsRepository.findByName(payload.getName());
         if (!isNull(teamsEntity)) {
@@ -38,6 +40,7 @@ public class TeamsServiceImpl implements GenericService<TeamRequestDTO, TeamResp
     }
 
     @Override
+    @Transactional
     public TeamResponseDTO updateById(String id, TeamRequestDTO payload) {
         return teamsRepository.findById(id)
                 .map(ignored -> teamsMapper.mapToTeamsEntity(id, payload))

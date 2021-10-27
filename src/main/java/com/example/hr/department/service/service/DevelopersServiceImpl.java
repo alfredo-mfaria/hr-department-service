@@ -10,6 +10,7 @@ import com.example.hr.department.service.repository.jpa.TeamsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class DevelopersServiceImpl implements GenericService<DevelopersRequestDT
     private final DevelopersMapper developersMapper;
 
     @Override
+    @Transactional
     public DevelopersResponseDTO create(DevelopersRequestDTO payload) {
         return Optional.ofNullable(teamsRepository.findByName(payload.getTeam()))
                 .map(teamsEntity -> developersMapper.mapToDevelopersEntity(null, payload, teamsEntity))
@@ -31,6 +33,7 @@ public class DevelopersServiceImpl implements GenericService<DevelopersRequestDT
     }
 
     @Override
+    @Transactional
     public DevelopersResponseDTO updateById(String id, DevelopersRequestDTO payload) {
         return developersRepository.findById(id)
                 .map(developerFound -> teamsRepository.findById(id)

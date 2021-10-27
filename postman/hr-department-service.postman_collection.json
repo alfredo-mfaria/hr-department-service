@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "a8a17cd9-3e67-41ec-88d9-077e96e9f359",
+		"name": "hr-department-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Developers",
+			"item": [
+				{
+					"name": "Find All Developers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/developers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"developers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Developer By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/developers/01f48ae7-1128-4a9c-b3d5-dcfe7aacf04e",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"developers",
+								"01f48ae7-1128-4a9c-b3d5-dcfe7aacf04e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Developer By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/developers/01f48ae7-1128-4a9c-b3d5-dcfe7aacf04e",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"developers",
+								"01f48ae7-1128-4a9c-b3d5-dcfe7aacf04e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Developer By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Alfredo Faria\",\n    \"team\" : \"FE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/developers/01f48ae7-1128-4a9c-b3d5-dcfe7aacf04e",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"developers",
+								"01f48ae7-1128-4a9c-b3d5-dcfe7aacf04e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Developer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Alfredo\",\n    \"team\" : \"FE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/developers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"developers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Create Team",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"FE\",\n    \"description\": \"Hello world\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/teams",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"BE\",\n    \"description\" : \"Hello world\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/teams/3434121f-dce7-44ae-a95c-107bf83bb07c",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams",
+								"3434121f-dce7-44ae-a95c-107bf83bb07c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Teams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Team By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams/22bd6199-ebc0-43d5-a590-0cfe13c38262",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams",
+								"22bd6199-ebc0-43d5-a590-0cfe13c38262"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Team By Id Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams/a7ad01c6-6508-48ea-8f6f-35371993c227",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams",
+								"a7ad01c6-6508-48ea-8f6f-35371993c227"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
