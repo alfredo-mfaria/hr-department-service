@@ -36,7 +36,7 @@ docker run -p 8080:8080 hr-department-service:1.0
 ## API
 Check the /swagger-ui.html path while running the service for a more detailed explanation of the api.
 
-##Tech Stack
+## Tech Stack
 * Maven 3.*
 * JAVA11
 * Spring-boot 2.*
@@ -46,7 +46,7 @@ Check the /swagger-ui.html path while running the service for a more detailed ex
 * Postman collection
 * Docker
 
-##Authors
+## Authors
 Alfredo Faria
 
 ## License
