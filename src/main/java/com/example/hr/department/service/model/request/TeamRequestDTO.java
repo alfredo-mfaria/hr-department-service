@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TeamRequestDTO {
 
-    @NotBlank
+    @NotBlank(message = "Name field must not be blank")
     private String name;
     private String description;
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,13 +38,13 @@ public class DevelopersController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public DevelopersResponseDTO createTeam(@RequestBody DevelopersRequestDTO payload) {
+    public DevelopersResponseDTO createTeam(@Valid @RequestBody DevelopersRequestDTO payload) {
         return developersService.create(payload);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DevelopersResponseDTO updateTeam(@PathVariable("id") String id,
-                                            @RequestBody DevelopersRequestDTO payload) {
+                                            @Valid @RequestBody DevelopersRequestDTO payload) {
         return developersService.updateById(id, payload);
     }
 

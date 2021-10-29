@@ -182,4 +182,24 @@ class HrDepartmentServiceTeamsIT {
         Assertions.assertEquals(mockBeTeam.getDescription(), actual.getDescription());
         Assertions.assertNotNull(actual.getId());
     }
+
+    @Test
+    void mandatoryTeamNameFieldConstraintValidationShouldReturnBadRequest() throws Exception {
+
+        TeamRequestDTO mockEmptyTeamName = TeamRequestDTO.builder()
+                .name(" ")
+                .build();
+
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/teams")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(SerDesHelper.serialize(mockEmptyTeamName)))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        ExceptionDTO actual = SerDesHelper.deserialize(response, ExceptionDTO.class);
+        Assertions.assertEquals("Name field must not be blank", actual.getMessage());
+    }
 }
