@@ -6,7 +6,6 @@ hr-department-service is REST based microservice that enables an HR department t
 
 The colleagues in the HR department should be able to create a new developer entity, add the developer to existing teams and also remove the developer from teams.
 
-
 A team can exist without developers but a developer must be assigned to a team.
 
 
