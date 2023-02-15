@@ -1,6 +1,5 @@
 # HR DEPARTMENT SERVICE
 
-
 hr-department-service is REST based microservice that enables an HR department to  manage developers and the teams they belong to.
 
 ## Description
